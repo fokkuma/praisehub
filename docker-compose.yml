@@ -9,11 +9,27 @@ services:
       - mysql-data:/var/lib/mysql  
   app:
     build: .
+    build:
+      context: .
+      dockerfile: ./.images/Dockerfile-app
     command: rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/app
     links:
       - db
+  redoc-cli:
+    build:
+      context: .
+      dockerfile: ./.images/Dockerfile-Redoc
+    volumes:
+      - ./documents/spec:/data
+  redoc-preview:
+    image: redocly/redoc
+    volumes:
+      - ./documents/spec:/usr/share/nginx/html/swagger
+    environment:
+      SPEC_URL: ./swagger/index.yml
+      PORT: 8080
 volumes:
   mysql-data:
     driver: local

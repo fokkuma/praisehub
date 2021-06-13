@@ -14,10 +14,10 @@ ENV APP_ROOT /app
 WORKDIR $APP_ROOT
 
 # ホストからGemfileをコンテナ上にコピー
-ADD ./Gemfile $APP_ROOT/Gemfile
-ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
+ADD ../Gemfile $APP_ROOT/Gemfile
+ADD ../Gemfile.lock $APP_ROOT/Gemfile.lock
 
 # Gemfileをbundle install:2.0.2
 RUN gem install bundler -v 2.2.6
 RUN bundle install
-ADD . $APP_ROOT
+ADD ../ $APP_ROOT

@@ -6,3 +6,6 @@ services:
   app:
     ports:
       - "3002:3000"
+  redoc-preview:
+    ports:
+      - "8080:8080"    

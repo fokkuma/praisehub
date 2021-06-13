@@ -10,7 +10,10 @@ import App from '../app.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    render: h => h(App)
+    render: h => h(App),
+    data: {
+      message: 'Hello World!'
+    }
   }).$mount()
   document.body.appendChild(app.$el)
 

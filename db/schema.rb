@@ -12,46 +12,53 @@
 
 ActiveRecord::Schema.define(version: 2020_05_30_061814) do
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id"
-    t.integer "praised_id"
+    t.bigint "user_id"
+    t.bigint "praised_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["praised_id"], name: "index_comments_on_praised_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "follows", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "user_id"
+  create_table "follows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["follower_id"], name: "index_follows_on_follower_id"
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
-  create_table "goodjobs", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "praised_id"
+  create_table "goodjobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "praised_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["praised_id"], name: "index_goodjobs_on_praised_id"
     t.index ["user_id"], name: "index_goodjobs_on_user_id"
   end
 
-  create_table "praiseds", force: :cascade do |t|
+  create_table "praiseds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_praiseds_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "praiseds"
+  add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users"
+  add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "goodjobs", "praiseds"
+  add_foreign_key "goodjobs", "users"
+  add_foreign_key "praiseds", "users"
 end

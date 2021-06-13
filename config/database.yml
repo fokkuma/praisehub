@@ -14,6 +14,7 @@ development:
   <<: *default
   username: root
   password: password # docker-compose.ymlのMYSQL_ROOT_PASSWORD
+  database: praise_development
   host: db # docker-compose.ymlのservice名
 
 # Warning: The database defined as "test" will be erased and
